@@ -142,7 +142,7 @@ public class SalarieAideADomicileService {
                 salarieAideADomicile.getCongesPayesAcquisAnneeNMoins1(),
                 salarieAideADomicile.getMoisDebutContrat(),
                 jourDebut, jourFin);
-        if (nbCongesPayesPrisDecomptesAnneeN < limiteEntreprise) {
+        if (nbCongesPayesPrisDecomptesAnneeN > limiteEntreprise) {
             throw new SalarieException("Conges Payes Pris Decomptes (" + nbCongesPayesPrisDecomptesAnneeN
                     + ") dépassent la limite des règles de l'entreprise : " + limiteEntreprise);
         }
