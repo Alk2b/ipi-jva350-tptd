@@ -184,7 +184,7 @@ de limite de congés permis par l'entreprise.
 ### Maintenabilité
 
 - conventions de codage : pareil, faites les respecter, améliorez la lisibilité du code
-- journalisation : Changez la configuration pour réaliser la rotation des fichiers de logs tous les jours et que chaque
+- BONUS : journalisation : Changez la configuration pour réaliser la rotation des fichiers de logs tous les jours et que chaque
 fichier ne dépasse pas 1 MO.
 - BONUS : Créez une petite documentation statique en utilisant MkDocs.
 - Rédigez **ci-dessous** une courte analyse du rapport produit par Sonar (métriques, évolution, état général...) :
