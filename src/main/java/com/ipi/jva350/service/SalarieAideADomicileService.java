@@ -7,6 +7,9 @@ import com.ipi.jva350.repository.SalarieAideADomicileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.persistence.EntityExistsException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,6 +20,8 @@ import java.util.stream.Collectors;
 @Service
 public class SalarieAideADomicileService {
 
+    // Initialisation du Logger
+    private static final Logger logger = LoggerFactory.getLogger(SalarieAideADomicileService.class);
     @Autowired
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
 
@@ -32,12 +37,15 @@ public class SalarieAideADomicileService {
             throws SalarieException, EntityExistsException {
         SalarieAideADomicile existant = salarieAideADomicileRepository.findByNom(salarieAideADomicile.getNom());
         if (existant != null) {
+            logger.error("Échec création : un salarié existe déjà avec le nom {}", existant.getNom());
             throw new SalarieException("Un salarié existe déjà avec le nom " + existant.getNom());
         }
         if (salarieAideADomicile.getId() != null) {
+            logger.warn("Tentative de création avec un ID déjà fourni");
             throw new SalarieException("L'id ne doit pas être fourni car il est généré");
         }
        salarieAideADomicileRepository.save(salarieAideADomicile);
+       logger.info("Salarié {} créé avec succès", salarieAideADomicile.getNom());
     }
 
     /**
@@ -177,6 +185,7 @@ public class SalarieAideADomicileService {
         }
 
         salarieAideADomicileRepository.save(salarieAideADomicile);
+        logger.info("Clôture du mois pour {} (jours travaillés ajoutés : {})", salarieAideADomicile.getNom(), joursTravailles);
     }
 
     /**
