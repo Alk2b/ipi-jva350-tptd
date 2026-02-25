@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = Jva350Application.class)
 public class StepDefinitions {
 
-    private String today;
     private String actualAnswer;
     
     private SalarieAideADomicile salarie;
@@ -28,7 +27,6 @@ public class StepDefinitions {
 
     @Given("today is Sunday")
     public void today_is_Sunday() {
-        today = "Sunday";
     }
 
     @When("I ask whether it's Friday yet")

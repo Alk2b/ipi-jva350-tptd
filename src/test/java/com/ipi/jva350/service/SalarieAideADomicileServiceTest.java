@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class SalarieAideADomicileServiceTest {
+class SalarieAideADomicileServiceTest {
 
     @Autowired
     private SalarieAideADomicileService service;
@@ -26,7 +26,7 @@ public class SalarieAideADomicileServiceTest {
     }
 
     @Test
-    public void testAjouteConge_integration() throws Exception {
+    void testAjouteConge_integration() throws Exception {
         // Given : Création d'un salarié en base
         SalarieAideADomicile salarie = new SalarieAideADomicile();
         salarie.setNom("Dupont");
@@ -51,7 +51,7 @@ public class SalarieAideADomicileServiceTest {
     }
 
     @Test
-    public void testCalculeLimiteEntrepriseCongesPermis_integration() {
+    void testCalculeLimiteEntrepriseCongesPermis_integration() {
         // Given : données en base pour que partCongesPrisTotauxAnneeNMoins1 retourne une valeur réelle
         // proportion = (10+15)/(25+25) = 0.5
         SalarieAideADomicile salarie1 = new SalarieAideADomicile();
@@ -80,7 +80,7 @@ public class SalarieAideADomicileServiceTest {
     }
 
     @Test
-    public void testCalculeLimiteEntrepriseCongesPermis_seniorPlusQueJunior() {
+    void testCalculeLimiteEntrepriseCongesPermis_seniorPlusQueJunior() {
         // Given
         SalarieAideADomicile salarie = new SalarieAideADomicile();
         salarie.setNom("Salarie");

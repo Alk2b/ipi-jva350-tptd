@@ -1,6 +1,5 @@
 package com.ipi.jva350.model;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import java.time.LocalDate;
@@ -25,7 +24,7 @@ public class EntrepriseTest {
         "2026-01-11, 2026-01-01, 2026-01-10, false",  // Date après
         "2025-12-31, 2026-01-01, 2026-01-10, false"   // Date avant
     })
-    public void testEstDansPlage_naif(String dateStr, String debutStr, String finStr, boolean attendu) {
+    void testEstDansPlage_naif(String dateStr, String debutStr, String finStr, boolean attendu) {
         LocalDate date = LocalDate.parse(dateStr);
         LocalDate debut = LocalDate.parse(debutStr);
         LocalDate fin = LocalDate.parse(finStr);
@@ -54,7 +53,7 @@ public class EntrepriseTest {
         "2026-01-04, 2026-01-05, 2026-01-05, false",  // Avant une plage d'un seul jour
         "2026-01-06, 2026-01-05, 2026-01-05, false"   // Après une plage d'un seul jour
     })
-    public void testEstDansPlage(String dateStr, String debutStr, String finStr, boolean attendu) {
+    void testEstDansPlage(String dateStr, String debutStr, String finStr, boolean attendu) {
         LocalDate date = LocalDate.parse(dateStr);
         LocalDate debut = LocalDate.parse(debutStr);
         LocalDate fin = LocalDate.parse(finStr);
