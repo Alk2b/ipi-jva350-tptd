@@ -27,6 +27,7 @@ public class StepDefinitions {
 
     @Given("today is Sunday")
     public void today_is_Sunday() {
+        // Méthode vide intentionnellement pour ce step Cucumber. (necessaire pour Sonar)
     }
 
     @When("I ask whether it's Friday yet")

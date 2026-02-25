@@ -5,7 +5,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class EntrepriseTest {
+class EntrepriseTest {
 
     // test TDD Allan (AVANT DE VOIR LA MÉTHODE)
     // Ce test est écrit et se base sur la javaDoc,
