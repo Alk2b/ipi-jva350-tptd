@@ -41,11 +41,7 @@ public class EntrepriseTest {
     // (ex: date == début/fin ou plage d'un seul jour).
     // Le TDD m'a forcé à anticiper ces pièges avant d'écrire le code,
     // ce qui évite le biais du "ça marche sur un test, donc c'est fini".
-
-
-    // PHASE 3 : TESTS TDD COMPLETS
     // Maintenant que j'ai réfléchi à tout les cas j'écris les tests aux complet
-    // (toujours AVANT l'implémentation finale !)
 
     @ParameterizedTest
     @CsvSource({
