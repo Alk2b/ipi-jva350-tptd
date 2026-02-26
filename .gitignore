@@ -34,3 +34,6 @@ build/
 
 # Logs Spring Boot
 logs/
+
+# MkDocs generated site
+site/

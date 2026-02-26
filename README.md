@@ -190,3 +190,12 @@ fichier ne dépasse pas 1 MO.
 - Rédigez **ci-dessous** une courte analyse du rapport produit par Sonar (métriques, évolution, état général...) :
 
 Le rapport Sonar final indique...
+
+[![Quality Gate
+Status](https://sonarcloud.io/api/project_badges/measure?project=Alk2b_ipi-jva350-tptd&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Alk2b_ipi-jva350-tptd)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Alk2b_ipi-jva350-tptd&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Alk2b_ipi-jva350-tptd)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Alk2b_ipi-jva350-tptd&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Alk2b_ipi-jva350-tptd)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Alk2b_ipi-jva350-tptd&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Alk2b_ipi-jva350-tptd)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Alk2b_ipi-jva350-tptd&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Alk2b_ipi-jva350-tptd)
+[![Duplicated Lines
+(%)](https://sonarcloud.io/api/project_badges/measure?project=Alk2b_ipi-jva350-tptd&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Alk2b_ipi-jva350-tptd)

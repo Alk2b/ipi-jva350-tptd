@@ -1,0 +1,16 @@
+site_name: IPI JVA350 - Qualité Logicielle
+site_description: Documentation technique du projet de qualité logicielle JVA350
+site_author: Allan Khebab et Angelica Lazaro
+
+theme:
+  name: material
+  language: fr
+  palette:
+    primary: indigo
+    accent: indigo
+
+nav:
+  - Accueil: index.md
+  - Modèle Métier: domaine.md
+  - Stratégie de Tests: tests.md
+  - Rapport Qualité: qualite.md

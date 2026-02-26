@@ -125,18 +125,12 @@ public final class Entreprise {
 
     public static LocalDate getPremierJourAnneeDeConges(LocalDate d) {
         return d == null ? null
-                : d.getMonthValue() > 5 ? LocalDate.of(d.getMonthValue(), 6, 1)
+                : d.getMonthValue() > 5 ? LocalDate.of(d.getYear(), 6, 1)
                 : LocalDate.of(d.getYear() - 1, 6, 1);
     }
 
     public static boolean estJourFerie(LocalDate jour) {
-        int monEntier = (int) Entreprise.joursFeries(jour).stream().filter(d ->
-                d.equals(jour)).count();
-        int test = bissextile(jour.getYear()) ? 1 : 0;
-        if (test != 0 && !(monEntier > 1)) {
-            test--;
-        }
-        return monEntier != test;
+        return joursFeries(jour).contains(jour);
     }
 
     /**
