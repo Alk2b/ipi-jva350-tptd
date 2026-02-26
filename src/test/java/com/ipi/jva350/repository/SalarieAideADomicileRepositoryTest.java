@@ -46,4 +46,38 @@ class SalarieAideADomicileRepositoryTest {
         // Then : Vérification que le nom correspond
         assertEquals("Dupont", salarieTrouve.getNom());
     }
+
+    @Test
+    void testPartCongesPrisTotauxAnneeNMoins1_calculeCorrectement() {
+        // Given : proportion attendue = (10 + 15) / (25 + 25) = 0.5
+        SalarieAideADomicile salarie1 = new SalarieAideADomicile();
+        salarie1.setNom("Salarie1");
+        salarie1.setCongesPayesAcquisAnneeNMoins1(25);
+        salarie1.setCongesPayesPrisAnneeNMoins1(10);
+        repository.save(salarie1);
+
+        SalarieAideADomicile salarie2 = new SalarieAideADomicile();
+        salarie2.setNom("Salarie2");
+        salarie2.setCongesPayesAcquisAnneeNMoins1(25);
+        salarie2.setCongesPayesPrisAnneeNMoins1(15);
+        repository.save(salarie2);
+
+        // When
+        Double proportion = repository.partCongesPrisTotauxAnneeNMoins1();
+
+        // Then
+        assertNotNull(proportion);
+        assertEquals(0.5, proportion, 0.01);
+    }
+
+    @Test
+    void testPartCongesPrisTotauxAnneeNMoins1_baseVide() {
+        // Given : base vide (setUp a appelé deleteAll)
+
+        // When
+        Double proportion = repository.partCongesPrisTotauxAnneeNMoins1();
+
+        // Then : aucune donnée = null
+        assertNull(proportion);
+    }
 }

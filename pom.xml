@@ -91,6 +91,12 @@
 			<version>7.5.0</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>7.5.0</version>
+            <scope>test</scope>
+        </dependency>
 		<!-- else error AVERTISSEMENT: Failed to load methods of class 'net.bytebuddy.agent.VirtualMachine$ForHotSpot$Connection$ForJnaSolarisDoor'.
 		... java.lang.NoClassDefFoundError: com/sun/jna/Pointer -->
 		<dependency>
