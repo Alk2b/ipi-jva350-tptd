@@ -22,10 +22,10 @@ public class SalarieAideADomicileService {
 
     // Initialisation du Logger
     private static final Logger logger = LoggerFactory.getLogger(SalarieAideADomicileService.class);
-    @Autowired
-    private SalarieAideADomicileRepository salarieAideADomicileRepository;
+    private final SalarieAideADomicileRepository salarieAideADomicileRepository;
 
-    public SalarieAideADomicileService() {
+    public SalarieAideADomicileService(SalarieAideADomicileRepository salarieAideADomicileRepository) {
+        this.salarieAideADomicileRepository = salarieAideADomicileRepository;
     }
 
     /**
@@ -116,10 +116,10 @@ public class SalarieAideADomicileService {
             throw new SalarieException("N'a pas légalement droit à des congés payés !");
         }
 
-        LinkedHashSet<LocalDate> joursDecomptes = salarieAideADomicile
-                .calculeJoursDeCongeDecomptesPourPlage(jourDebut, jourFin);
+        LinkedHashSet<LocalDate> joursDecomptes = new LinkedHashSet<>(salarieAideADomicile
+                .calculeJoursDeCongeDecomptesPourPlage(jourDebut, jourFin));
 
-        if (joursDecomptes.size() == 0) {
+        if (joursDecomptes.isEmpty()) {
             throw new SalarieException("Pas besoin de congés !");
         }
 
@@ -131,7 +131,7 @@ public class SalarieAideADomicileService {
         LinkedHashSet<LocalDate> congesPayesPrisDecomptesAnneeN = new LinkedHashSet<>(joursDecomptes.stream()
                 .filter(d -> !d.isAfter(LocalDate.of(Entreprise.getPremierJourAnneeDeConges(
                         salarieAideADomicile.getMoisEnCours()).getYear() + 1, 5, 31)))
-                .collect(Collectors.toList()));
+                .toList());
         int nbCongesPayesPrisDecomptesAnneeN = congesPayesPrisDecomptesAnneeN.size();
         if (joursDecomptes.size() > nbCongesPayesPrisDecomptesAnneeN + 1) {
             // NB. 1 jour dans la nouvelle année est toujours toléré, pour résoudre le cas d'un congé devant se finir un
@@ -171,7 +171,7 @@ public class SalarieAideADomicileService {
      * @param salarieAideADomicile salarié
      * @param joursTravailles jours travaillés dans le mois en cours du salarié
      */
-    public void clotureMois(SalarieAideADomicile salarieAideADomicile, double joursTravailles) throws SalarieException {
+    public void clotureMois(SalarieAideADomicile salarieAideADomicile, double joursTravailles) {
         // incrémente les jours travaillés de l'année N du salarié de celles passées en paramètres
         salarieAideADomicile.setJoursTravaillesAnneeN(salarieAideADomicile.getJoursTravaillesAnneeN() + joursTravailles);
 
@@ -204,7 +204,7 @@ public class SalarieAideADomicileService {
         salarieAideADomicile.setCongesPayesPris(new LinkedHashSet<>(salarieAideADomicile.getCongesPayesPris().stream()
                 .filter(d -> d.isAfter(LocalDate.of(Entreprise.getPremierJourAnneeDeConges(
                         salarieAideADomicile.getMoisEnCours()).getYear(), 5, 31)))
-                .collect(Collectors.toList())));
+                .toList()));
 
         salarieAideADomicileRepository.save(salarieAideADomicile);
     }

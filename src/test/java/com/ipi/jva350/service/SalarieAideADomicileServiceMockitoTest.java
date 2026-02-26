@@ -103,12 +103,17 @@ class SalarieAideADomicileServiceMockitoTest {
     @Test
     void testCalculeLimite_partCongesNull_lanceNullPointerException() {
         when(salarieAideADomicileRepository.partCongesPrisTotauxAnneeNMoins1()).thenReturn(null);
+        LocalDate moisEnCours = LocalDate.of(2026, 6, 1);
+        double congesPayesAcquisAnneeNMoins1 = 25.0;
+        LocalDate moisDebutContrat = LocalDate.of(2021, 6, 1);
+        LocalDate premierJourDeConge = LocalDate.of(2026, 6, 1);
+        LocalDate dernierJourDeConge = LocalDate.of(2026, 6, 7);
 
         assertThrows(NullPointerException.class, () ->
                 service.calculeLimiteEntrepriseCongesPermis(
-                        LocalDate.of(2026, 6, 1), 25.0,
-                        LocalDate.of(2021, 6, 1),
-                        LocalDate.of(2026, 6, 1), LocalDate.of(2026, 6, 7)
+                        moisEnCours, congesPayesAcquisAnneeNMoins1,
+                        moisDebutContrat,
+                        premierJourDeConge, dernierJourDeConge
                 )
         );
     }

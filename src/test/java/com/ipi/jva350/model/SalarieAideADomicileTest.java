@@ -9,8 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import jakarta.persistence.EntityNotFoundException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
@@ -20,7 +18,7 @@ import com.ipi.jva350.service.SalarieAideADomicileService;
 import com.ipi.jva350.exception.SalarieException;
 
 @ExtendWith(MockitoExtension.class)
-public class SalarieAideADomicileTest {
+class SalarieAideADomicileTest {
 
     @Mock
     private SalarieAideADomicileRepository salarieAideADomicileRepository;
@@ -28,43 +26,22 @@ public class SalarieAideADomicileTest {
     @InjectMocks
     private SalarieAideADomicileService salarieAideADomicileService;
 
-    @Test
-    public void testALegalementDroitADesCongesPayes_avecMoinsDe10Jours() {
+    @ParameterizedTest(name = "Test aLegalementDroitADesCongesPayes avec {0} jours travaillés, doit retourner {1}")
+    @CsvSource({
+            "5, false",
+            "10, true",
+            "11, true"
+    })
+    void testALegalementDroitADesCongesPayes(int joursTravailles, boolean expected) {
         // Given : Mise en place de l'environnement du test et de ses données
         SalarieAideADomicile salarie = new SalarieAideADomicile();
-        salarie.setJoursTravaillesAnneeNMoins1(5);
-        
-        // When : Comportement à tester
-        Boolean aDroit = salarie.aLegalementDroitADesCongesPayes();
-        
-        // Then : Comparaison du résultat avec celui attendu
-        assertEquals(false, aDroit);
-    }
+        salarie.setJoursTravaillesAnneeNMoins1(joursTravailles);
 
-    @Test
-    public void testALegalementDroitADesCongesPayes_avecExactement10Jours() {
-        // Given : Mise en place de l'environnement du test et de ses données
-        SalarieAideADomicile salarie = new SalarieAideADomicile();
-        salarie.setJoursTravaillesAnneeNMoins1(10);
-        
         // When : Comportement à tester
-        Boolean aDroit = salarie.aLegalementDroitADesCongesPayes();
-        
-        // Then : Comparaison du résultat avec celui attendu (10 jours exactement ne suffit pas)
-        assertEquals(true, aDroit);
-    }
+        boolean aDroit = salarie.aLegalementDroitADesCongesPayes();
 
-    @Test
-    public void testALegalementDroitADesCongesPayes_avecPlusDe10Jours() {
-        // Given : Mise en place de l'environnement du test et de ses données
-        SalarieAideADomicile salarie = new SalarieAideADomicile();
-        salarie.setJoursTravaillesAnneeNMoins1(11);
-        
-        // When : Comportement à tester
-        Boolean aDroit = salarie.aLegalementDroitADesCongesPayes();
-        
         // Then : Comparaison du résultat avec celui attendu
-        assertEquals(true, aDroit);
+        assertEquals(expected, aDroit);
     }
 
     @ParameterizedTest
@@ -74,7 +51,7 @@ public class SalarieAideADomicileTest {
         "2026-01-10, 2026-01-11, 0",  // Weekend - aucun jour décompté
         "2026-05-01, 2026-05-05, 3",  // Avec vendredi 1er mai férié - 3 jours (sam 2, lun 4, mar 5)
     })
-    public void testCalculeJoursDeCongeDecomptesPourPlage(String dateDebutStr, String dateFinStr, int joursAttendus) {
+    void testCalculeJoursDeCongeDecomptesPourPlage(String dateDebutStr, String dateFinStr, int joursAttendus) {
         // Given : Mise en place de l'environnement du test et de ses données
         SalarieAideADomicile salarie = new SalarieAideADomicile();
         LocalDate dateDebut = LocalDate.parse(dateDebutStr);
@@ -92,7 +69,7 @@ public class SalarieAideADomicileTest {
      * Elle fait plusieurs choses et il y a donc plusieurs choses à tester.
      */
     @Test
-    public void testAjouteConge_avecCongesValides() throws Exception {
+    void testAjouteConge_avecCongesValides() throws Exception {
         // Given : Configuration du salarié et du mock
         SalarieAideADomicile salarie = new SalarieAideADomicile();
         salarie.setId(1L);
@@ -122,7 +99,7 @@ public class SalarieAideADomicileTest {
     }
 
     @Test
-    public void testAjouteConge_sansDroitAuxConges() {
+    void testAjouteConge_sansDroitAuxConges() {
         // Given : Salarié n'ayant pas droit aux congés
         SalarieAideADomicile salarie = new SalarieAideADomicile();
         salarie.setJoursTravaillesAnneeNMoins1(0); // Moins de 10 jours = pertinent
@@ -137,7 +114,7 @@ public class SalarieAideADomicileTest {
     }
 
     @Test
-    public void testAjouteConge_aucunJourDecompte() {
+    void testAjouteConge_aucunJourDecompte() {
         // Given : Congé uniquement le dimanche (pas décompté)
         SalarieAideADomicile salarie = new SalarieAideADomicile();
         salarie.setJoursTravaillesAnneeNMoins1(200);
